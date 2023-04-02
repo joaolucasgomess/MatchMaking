@@ -3,6 +3,7 @@ import java.util.*;
 public class Main{
   public static void main(String[] args) {
   Scanner leia = new Scanner(System.in);
+  GerenciadorMacthmaking matchmaking = new GerenciadorMacthmaking();
    while(true){
       System.out.println("\nOpcoes: ");
       System.out.println("1 - Adicionar jogador");
@@ -17,7 +18,7 @@ public class Main{
                break;
                
             case 2:
-               //exemplo.exibirJogadores();
+               matchmaking.exibirJogadoresPendentes();
                break;
             
             case 3:
