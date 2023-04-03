@@ -1,7 +1,7 @@
-public class GerenciadorMacthmaking{
+public class Macthmaking{
    private Lista listaJogadoresPendentes;   
    
-   public GerenciadorMacthmaking(){
+   public Macthmaking(){
       listaJogadoresPendentes = new Lista();
       preencherJogadores();
    }

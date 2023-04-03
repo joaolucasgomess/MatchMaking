@@ -3,7 +3,7 @@ import java.util.*;
 public class Main{
   public static void main(String[] args) {
   Scanner leia = new Scanner(System.in);
-  GerenciadorMacthmaking matchmaking = new GerenciadorMacthmaking();
+  Macthmaking matchmaking = new Macthmaking();
    while(true){
       System.out.println("\nOpcoes: ");
       System.out.println("1 - Adicionar jogador");
@@ -14,6 +14,7 @@ public class Main{
          
       switch (opcao){
             case 1:
+               matchmaking.testarNivel();
                //exemplo.adicionarJogador();
                break;
                

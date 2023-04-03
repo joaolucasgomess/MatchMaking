@@ -51,8 +51,8 @@ public class Jogador{
    @Override
    public String toString(){
       return("ID: " + this.id
-         + "- Role:" + roleString()
-         + "- Pontuacao de habilidade: " + this.pontuacao
+         + " - Role:" + roleString()
+         + " - Pontuacao de habilidade: " + this.pontuacao
          );
    }
    
