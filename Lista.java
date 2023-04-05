@@ -12,6 +12,10 @@ public class Lista{
       end.setAnterior(head);
    }
    
+   public int getSize(){
+      return this.size;
+   }
+   
    public void addFirst(Jogador novoJogador){
       NoDuplo jogadorPendente = new NoDuplo();
       jogadorPendente.setJogadorPendente(novoJogador);

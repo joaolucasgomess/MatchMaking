@@ -14,7 +14,7 @@ public class Main{
          
       switch (opcao){
             case 1:
-               matchmaking.testarNivel();
+               matchmaking.iniciarPartida();
                //exemplo.adicionarJogador();
                break;
                
