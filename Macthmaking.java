@@ -3,7 +3,7 @@ public class Macthmaking{
    
    public Macthmaking(){
       listaJogadoresPendentes = new Lista();
-      preencherJogadores();
+      listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaJogadoresPendentes, "zDaCertoDePrimeirajogadores.txt");
    }
    
    public Lista getListaJogadoresPendentes(){
@@ -12,10 +12,6 @@ public class Macthmaking{
    
    public void setListaJogadoresPendentes(Lista listaJogadoresPendentes){
       this.listaJogadoresPendentes = listaJogadoresPendentes;
-   }
-   
-   public void preencherJogadores(){
-      this.listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaJogadoresPendentes, "ynuncaDaCertojogadores.txt");
    }
    
    public void exibirJogadoresPendentes(){
@@ -36,12 +32,11 @@ public class Macthmaking{
       
          if(balanciamento <= 1000){
             testarRole(jogadoresTestados);
-            break;
-         }else{
-            inicio++;
-            fim++;
          }
-      }  
+         inicio++;
+         fim++;
+      }
+      Uteis.printar("deu partida nao ze");  
    }
    
    public Jogador[] transicaoListaVetor(int inicio, int fim){
@@ -57,6 +52,31 @@ public class Macthmaking{
    }
    
    public void testarRole(Jogador[] jogadoresTestados){
-      //TODO
+      int[] rolesContadas = contaRoles(jogadoresTestados);
+      
+      for(int role : rolesContadas){
+         if(role > 2){
+            Uteis.printar("deu ruim as roles");
+            break;
+         }
+      }
+   }
+   
+   public int[] contaRoles(Jogador[] jogadoresTestados){
+      //0 - carregador, 1 - tanker, 2 - suporte, 3 - mago
+      int[] contagemDeRoles = new int[4];
+      
+      for(Jogador jogador : jogadoresTestados){
+         if(jogador.getRole() == 0){
+            contagemDeRoles[0]++;
+         }else if(jogador.getRole() == 1){
+            contagemDeRoles[1]++;
+         }else if(jogador.getRole() == 2){
+            contagemDeRoles[2]++;
+         }else{
+            contagemDeRoles[3]++;
+         }
+      }
+      return contagemDeRoles;
    }
 }

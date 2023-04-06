@@ -3,7 +3,7 @@ import java.util.*;
 public class Jogador{
 
    private int id;
-   private int role;
+   private int role; //0 - carregador, 1 - tanker, 2 - suporte, 3 - mago
    private int pontuacao;
    
    public Jogador(int id, int role, int pontuacao){

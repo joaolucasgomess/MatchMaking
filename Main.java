@@ -5,11 +5,13 @@ public class Main{
   Scanner leia = new Scanner(System.in);
   Macthmaking matchmaking = new Macthmaking();
    while(true){
+      System.out.print("---- MATCHMAKING MENU -----");
       System.out.println("\nOpcoes: ");
       System.out.println("1 - Adicionar jogador");
       System.out.println("2 - Ver jogadores em espera");
       System.out.println("3 - Ver partidas em andamento");
       System.out.println("4 - Sair");
+      System.out.print("\nSeleione uma opcao: ");
       int opcao = leia.nextInt();
          
       switch (opcao){
