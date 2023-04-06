@@ -3,7 +3,7 @@ public class Macthmaking{
    
    public Macthmaking(){
       listaJogadoresPendentes = new Lista();
-      listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaJogadoresPendentes, "zDaCertoDePrimeirajogadores.txt");
+      listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaJogadoresPendentes, "zNuncaDaCertojogadores.txt");
    }
    
    public Lista getListaJogadoresPendentes(){
@@ -18,25 +18,48 @@ public class Macthmaking{
       listaJogadoresPendentes.print();
    }
    
-   public void iniciarPartida(){
-      testarNivel();
-      //testar role
-   }
-   
-   public void testarNivel(){
+   public void testesParaIniciarPartida(){
       int inicio = 1;
       int fim  = 6;
+      
       while(fim <= listaJogadoresPendentes.getSize()){
          Jogador[] jogadoresTestados = transicaoListaVetor(inicio, fim);
-         int balanciamento = jogadoresTestados[5].getPontuacao() - jogadoresTestados[0].getPontuacao();
       
-         if(balanciamento <= 1000){
-            testarRole(jogadoresTestados);
+         if(testarNivel(jogadoresTestados) == true){
+            if(testarRole(jogadoresTestados) == true){
+               iniciarPartida();
+            }
+         }else{
+            inicio++;
+            fim++;
          }
-         inicio++;
-         fim++;
+      }
+   }
+   
+   public void iniciarPartida(){
+      //TODO
+   }
+   
+   public boolean testarNivel(Jogador[] jogadoresTestados){
+      int balanciamento = jogadoresTestados[5].getPontuacao() - jogadoresTestados[0].getPontuacao();
+      
+      if(balanciamento <= 1000){
+         return true;
       }
       Uteis.printar("deu partida nao ze");  
+      return false;
+   }
+   
+   public boolean testarRole(Jogador[] jogadoresTestados){
+      int[] rolesContadas = contaRoles(jogadoresTestados);
+      
+      for(int role : rolesContadas){
+         if(role > 2){
+            Uteis.printar("deu ruim as roles");
+            return false;
+         }
+      }
+      return true;
    }
    
    public Jogador[] transicaoListaVetor(int inicio, int fim){
@@ -49,17 +72,6 @@ public class Macthmaking{
          indice++;
       }
       return jogadoresTestados;
-   }
-   
-   public void testarRole(Jogador[] jogadoresTestados){
-      int[] rolesContadas = contaRoles(jogadoresTestados);
-      
-      for(int role : rolesContadas){
-         if(role > 2){
-            Uteis.printar("deu ruim as roles");
-            break;
-         }
-      }
    }
    
    public int[] contaRoles(Jogador[] jogadoresTestados){
