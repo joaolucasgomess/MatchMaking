@@ -46,10 +46,11 @@ public class Lista{
       }
    }
    
-   public NoDuplo getAt(int indiceProcurado){
+   public Jogador getAt(int indiceProcurado){
       if(indiceProcurado > this.size){
          Uteis.printar("A lista e menor.");
-         return head;
+         Jogador jogador = head.getJogadorPendente();
+         return jogador;
       }else{
          int indicePercorrido = 0;
          NoDuplo atual = head;
@@ -57,7 +58,7 @@ public class Lista{
             atual = atual.getProximo();
             indicePercorrido++;
          }
-         return atual;
+         return atual.getJogadorPendente();
       }
    }
 }

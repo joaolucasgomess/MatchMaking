@@ -19,20 +19,19 @@ public class Macthmaking{
    }
    
    public void testesParaIniciarPartida(){
+      boolean naoEntraPartida = true;
       int inicio = 1;
-      int fim  = 6;
       
-      while(fim <= listaJogadoresPendentes.getSize()){
-         Jogador[] jogadoresTestados = transicaoListaVetor(inicio, fim);
-      
-         if(testarNivel(jogadoresTestados) == true){
-            if(testarRole(jogadoresTestados) == true){
+      while(naoEntraPartida){
+         int fim = inicio + 5;
+         while(testarNivel(inicio, fim)){
+            /*if(testarRole() == true){
+               naoEntraPartida = false;
                iniciarPartida();
-            }
-         }else{
-            inicio++;
+            }*/
             fim++;
          }
+         inicio++;
       }
    }
    
@@ -40,8 +39,10 @@ public class Macthmaking{
       //TODO
    }
    
-   public boolean testarNivel(Jogador[] jogadoresTestados){
-      int balanciamento = jogadoresTestados[5].getPontuacao() - jogadoresTestados[0].getPontuacao();
+   public boolean testarNivel(int inicio, int fim){
+   Jogador jogadorInicio = listaJogadoresPendentes.getAt(inicio);
+   Jogador jogadorFim = listaJogadoresPendentes.getAt(fim);
+   int balanciamento = jogadorFim.getPontuacao() - jogadorInicio.getPontuacao();
       
       if(balanciamento <= 1000){
          return true;
@@ -62,7 +63,7 @@ public class Macthmaking{
       return true;
    }
    
-   public Jogador[] transicaoListaVetor(int inicio, int fim){
+   /*public Jogador[] transicaoListaVetor(int inicio, int fim){
       Jogador[] jogadoresTestados = new Jogador[6];
       int indice = 0;
    
@@ -72,7 +73,7 @@ public class Macthmaking{
          indice++;
       }
       return jogadoresTestados;
-   }
+   }*/
    
    public int[] contaRoles(Jogador[] jogadoresTestados){
       //0 - carregador, 1 - tanker, 2 - suporte, 3 - mago
