@@ -61,4 +61,13 @@ public class Lista{
          return atual.getJogadorPendente();
       }
    }
+   
+   public void addOrder(Jogador jogador){
+      NoDuplo atual = head.getProximo();
+      Jogador jogadorAtual = atual.getJogadorPendente();
+      while(jogadorAtual.getPontuacao() <= jogador.getPontuacao()){
+         atual = atual.getProximo();
+         //TODO
+      }
+   }
 }
