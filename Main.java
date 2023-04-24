@@ -1,23 +1,22 @@
 import java.util.*;
 
-public class Main{
+public class Main extends Uteis{
   public static void main(String[] args) {
   Scanner leia = new Scanner(System.in);
   Macthmaking matchmaking = new Macthmaking();
    while(true){
-      System.out.print("---- MATCHMAKING MENU -----");
-      System.out.println("\nOpcoes: ");
-      System.out.println("1 - Adicionar jogador");
-      System.out.println("2 - Ver jogadores em espera");
-      System.out.println("3 - Ver partidas em andamento");
-      System.out.println("4 - Sair");
-      System.out.print("\nSeleione uma opcao: ");
+      printar("---- MATCHMAKING MENU -----");
+      printar("\nOpcoes: ");
+      printar("1 - Adicionar jogador");
+      printar("2 - Ver jogadores em espera");
+      printar("3 - Ver partidas em andamento");
+      printar("4 - Sair");
+      printar("\nSeleione uma opcao: ");
       int opcao = leia.nextInt();
          
       switch (opcao){
             case 1:
-               matchmaking.testesParaIniciarPartida();
-               //exemplo.adicionarJogador();
+               matchmaking.adicionarJogador();
                break;
                
             case 2:

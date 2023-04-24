@@ -1,9 +1,12 @@
-public class Macthmaking{
+import java.util.*;
+
+public class Macthmaking extends Uteis{
    private Lista listaJogadoresPendentes;   
    
    public Macthmaking(){
       listaJogadoresPendentes = new Lista();
-      listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoTarefa(listaJogadoresPendentes, "zDaCertoDePrimeira.txt");
+      listaJogadoresPendentes = GerenciadorDeArquivos.carregarDoArquivoPendentes(listaJogadoresPendentes, "zDaCertoDePrimeira.txt");
+      criarPartida();
    }
    
    public Lista getListaJogadoresPendentes(){
@@ -18,21 +21,59 @@ public class Macthmaking{
       listaJogadoresPendentes.print();
    }
    
-   public void testesParaIniciarPartida(){
-      boolean naoEntraPartida = true;
-      int inicio = 1;
-      
-      while(naoEntraPartida){
-         int fim = inicio + 5;
-         while(testarNivel(inicio, fim)){
-            if(testarRole(inicio, fim) == true){
-               naoEntraPartida = false;
-               Uteis.printar("deu certo");
-               iniciarPartida();
+   public void adicionarJogador(){
+      Scanner leia = new Scanner(System.in);
+      System.out.print("Digite seu id: ");
+      int id = leia.nextInt();
+      if(!usuarioExiste(id)){
+         printar("Escolha a role desejada: \n1 - carregador\n2 - tanker\n3 - suporte\n4 - mago");
+         int role = (leia.nextInt() - 1);
+         System.out.print("Digite a pontuacao: ");
+         int pontuacao = leia.nextInt();
+         Jogador jogadorAdicionado = new Jogador(id, role, pontuacao);
+         listaJogadoresPendentes.addOrder(jogadorAdicionado);
+         GerenciadorDeArquivos.atualizarArquivoPendentes(listaJogadoresPendentes, "zDaCertoDePrimeira.txt");
+         printar("Jogador adicionado com sucesso à lista de espera.");
+         criarPartida();
+      }
+   }
+   
+   public boolean usuarioExiste(int id){
+      boolean usuarioExiste = false;
+      int indice = 1;
+      while(indice <= listaJogadoresPendentes.getSize()){
+         Jogador jogadorTestado = listaJogadoresPendentes.getAt(indice);
+         if(jogadorTestado.getId() == id){
+           usuarioExiste = true;
+           printar("Usuario ja existe!");
+           break;
+         }indice++;
+      }return usuarioExiste; 
+   }
+   
+   public void criarPartida(){
+      if(listaJogadoresPendentes.getSize() >= 6){
+         boolean naoEntraPartida = true;
+         int inicio = 1;
+         while(naoEntraPartida){
+            int fim = inicio + 5;
+            if(fim > listaJogadoresPendentes.getSize()){
+               printar("Todos os jogadores ja foram testados.");
+               break;
+            }else{
+               while(testarNivel(inicio, fim)){
+                  if(testarRole(inicio, fim) == true){
+                     naoEntraPartida = false;
+                     printar("deu certo");
+                     iniciarPartida();
+                  }
+                  fim++;
+               }
+               inicio++;
             }
-            fim++;
          }
-         inicio++;
+      }else{
+         printar("Nao ha jogadores o suficiente.");
       }
    }
    
@@ -48,18 +89,18 @@ public class Macthmaking{
       if(balanciamento <= 1000){
          return true;
       }
-      Uteis.printar("deu partida nao ze");  
+      printar("deu partida nao ze");  
       return false;
    }
    
    public boolean testarRole(int inicio, int fim){
       Jogador[] jogadoresTestados = transicaoListaVetor(inicio, fim);
-      Jogador[][] rolesContadas = contaRoles(jogadoresTestados);
+      int[][] rolesContadas = contaRoles(jogadoresTestados);
       int contaNulls = 0;
       
-      for(Jogador[] role : rolesContadas){
-         for(Jogador jogador : role){
-            if(jogador == null){
+      for(int[] role : rolesContadas){
+         for(int id : role){
+            if(id == 0){
                contaNulls++;
             }
          }
@@ -81,18 +122,18 @@ public class Macthmaking{
       return jogadoresTestados;
    }
    
-   public Jogador[][] contaRoles(Jogador[] jogadoresTestados){
+   public int[][] contaRoles(Jogador[] jogadoresTestados){
       //0 - carregador, 1 - tanker, 2 - suporte, 3 - mago
-      Jogador[][] ocorrenciasDeRoles = new Jogador[4][2];
+      int[][] ocorrenciasDeRoles = new int[4][2];
       int indice = 0;
       
       while(indice < 4){
          for(Jogador jogador : jogadoresTestados){
             if(jogador.getRole() == indice){
-               if(ocorrenciasDeRoles[indice][0] == null){
-                  ocorrenciasDeRoles[indice][0] = jogador;
+               if(ocorrenciasDeRoles[indice][0] == 0){
+                  ocorrenciasDeRoles[indice][0] = jogador.getId();
                }else{
-                  ocorrenciasDeRoles[indice][1] = jogador;
+                  ocorrenciasDeRoles[indice][1] = jogador.getId();
                }
             }
          }indice++;

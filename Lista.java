@@ -1,4 +1,4 @@
-public class Lista{
+public class Lista extends Uteis{
    private NoDuplo head;
    private NoDuplo end;
    private int size;
@@ -48,7 +48,7 @@ public class Lista{
    
    public Jogador getAt(int indiceProcurado){
       if(indiceProcurado > this.size){
-         Uteis.printar("A lista e menor.");
+         printar("A lista e menor.");
          Jogador jogador = head.getJogadorPendente();
          return jogador;
       }else{
@@ -62,12 +62,24 @@ public class Lista{
       }
    }
    
-   public void addOrder(Jogador jogador){
+   public void addOrder(Jogador jogadorAdd){
       NoDuplo atual = head.getProximo();
       Jogador jogadorAtual = atual.getJogadorPendente();
-      while(jogadorAtual.getPontuacao() <= jogador.getPontuacao()){
-         atual = atual.getProximo();
-         //TODO
+      while(atual != end){
+         if(jogadorAtual.getPontuacao() <= jogadorAdd.getPontuacao()){
+            atual = atual.getProximo();
+            jogadorAtual = atual.getJogadorPendente();
+         }else{
+            break;
+         }
       }
+      NoDuplo jogadorPendente = new NoDuplo();
+      jogadorPendente.setJogadorPendente(jogadorAdd);
+      jogadorPendente.setProximo(atual);
+      jogadorPendente.setAnterior(atual.getAnterior());
+      
+      atual.getAnterior().setProximo(jogadorPendente);
+      atual.setAnterior(jogadorPendente);
+      size++;
    }
 }
